@@ -165,7 +165,9 @@ function clearAll() {
   document.getElementById('printBtn').style.display = 'none';
   document.getElementById('clearBtn').style.display = 'none';
   document.getElementById('sizeControls').style.display = 'none';
-  document.getElementById('output').style.zoom = '';
+  const o = document.getElementById('output');
+  o.style.zoom = '';
+  o.style.maxWidth = '';
   scaleVal = 100;
   document.getElementById('sizeLabel').textContent = '100%';
 }
@@ -182,7 +184,9 @@ if (localStorage.getItem('theme')) document.documentElement.dataset.theme = loca
 let scaleVal = 100;
 function adjustSize(dir) {
   scaleVal = Math.max(50, Math.min(150, scaleVal + dir * 10));
-  document.getElementById('output').style.zoom = scaleVal + '%';
+  const el = document.getElementById('output');
+  el.style.zoom = scaleVal + '%';
+  el.style.maxWidth = (860 / (scaleVal / 100)) + 'px';
   document.getElementById('sizeLabel').textContent = scaleVal + '%';
 }
 </script>
