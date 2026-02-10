@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Markdown Viewer</title>
+<title>YK001 Viewer</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 <style>
@@ -84,9 +84,10 @@ input[type="file"] { display: none; }
 
 .empty-state { text-align: center; color: #999; padding: 4rem 1rem; font-size: .95rem; }
 
+@page { margin: 15mm; size: auto; }
 @media print {
   .controls { display: none !important; }
-  body { background: #fff; color: #000; }
+  body { background: #fff; color: #000; margin: 0; }
   #output { padding: 0; }
   .file-section { page-break-before: always; }
   .file-section:first-child { page-break-before: auto; }
@@ -104,7 +105,7 @@ input[type="file"] { display: none; }
 <body>
 <div class="controls">
   <header>
-    <h1>📄 Markdown Viewer</h1>
+    <h1>📄 YK001 Viewer</h1>
     <div class="header-actions">
       <button id="printBtn" class="primary" style="display:none" onclick="window.print()">🖨 Print / Save PDF</button>
       <button id="clearBtn" style="display:none" onclick="clearAll()">✕ Clear</button>
