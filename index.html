@@ -107,6 +107,11 @@ input[type="file"] { display: none; }
   <header>
     <h1>📄 YK001 Viewer</h1>
     <div class="header-actions">
+      <span id="sizeControls" style="display:none;align-items:center;gap:.25rem">
+        <button onclick="adjustSize(-1)" title="Smaller text">A−</button>
+        <span id="sizeLabel" style="font-size:.8rem;min-width:3em;text-align:center">100%</span>
+        <button onclick="adjustSize(1)" title="Larger text">A+</button>
+      </span>
       <button id="printBtn" class="primary" style="display:none" onclick="window.print()">🖨 Print / Save PDF</button>
       <button id="clearBtn" style="display:none" onclick="clearAll()">✕ Clear</button>
       <button onclick="toggleTheme()" title="Toggle theme">🌓</button>
@@ -152,12 +157,17 @@ function addFile(name, text) {
   fileCount++;
   document.getElementById('printBtn').style.display = '';
   document.getElementById('clearBtn').style.display = '';
+  document.getElementById('sizeControls').style.display = 'flex';
 }
 
 function clearAll() {
   output.innerHTML = ''; fileCount = 0;
   document.getElementById('printBtn').style.display = 'none';
   document.getElementById('clearBtn').style.display = 'none';
+  document.getElementById('sizeControls').style.display = 'none';
+  document.getElementById('output').style.fontSize = '';
+  textScale = 100;
+  document.getElementById('sizeLabel').textContent = '100%';
 }
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
@@ -168,6 +178,13 @@ function toggleTheme() {
   localStorage.setItem('theme', t);
 }
 if (localStorage.getItem('theme')) document.documentElement.dataset.theme = localStorage.getItem('theme');
+
+let textScale = 100;
+function adjustSize(dir) {
+  textScale = Math.max(50, Math.min(150, textScale + dir * 10));
+  document.getElementById('output').style.fontSize = textScale + '%';
+  document.getElementById('sizeLabel').textContent = textScale + '%';
+}
 </script>
 </body>
 </html>
