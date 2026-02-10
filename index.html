@@ -134,12 +134,14 @@ drop.addEventListener('dragleave', () => drop.classList.remove('over'));
 drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('over'); handleFiles(e.dataTransfer.files); });
 input.addEventListener('change', () => { handleFiles(input.files); input.value = ''; });
 
-function handleFiles(files) {
-  [...files].filter(f => /\.(md|markdown|txt)$/i.test(f.name)).forEach(f => {
+async function handleFiles(files) {
+  const mdFiles = [...files].filter(f => /\.(md|markdown|txt)$/i.test(f.name));
+  const results = await Promise.all(mdFiles.map(f => new Promise((resolve) => {
     const reader = new FileReader();
-    reader.onload = () => addFile(f.name, reader.result);
+    reader.onload = () => resolve({ name: f.name, text: reader.result });
     reader.readAsText(f);
-  });
+  })));
+  results.forEach(r => addFile(r.name, r.text));
 }
 
 function addFile(name, text) {
