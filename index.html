@@ -165,8 +165,10 @@ function clearAll() {
   document.getElementById('printBtn').style.display = 'none';
   document.getElementById('clearBtn').style.display = 'none';
   document.getElementById('sizeControls').style.display = 'none';
-  document.getElementById('output').style.fontSize = '';
-  textScale = 100;
+  const el = document.getElementById('output');
+  el.style.transform = '';
+  el.style.transformOrigin = '';
+  scaleVal = 100;
   document.getElementById('sizeLabel').textContent = '100%';
 }
 
@@ -179,11 +181,13 @@ function toggleTheme() {
 }
 if (localStorage.getItem('theme')) document.documentElement.dataset.theme = localStorage.getItem('theme');
 
-let textScale = 100;
+let scaleVal = 100;
 function adjustSize(dir) {
-  textScale = Math.max(50, Math.min(150, textScale + dir * 10));
-  document.getElementById('output').style.fontSize = textScale + '%';
-  document.getElementById('sizeLabel').textContent = textScale + '%';
+  scaleVal = Math.max(50, Math.min(150, scaleVal + dir * 10));
+  const el = document.getElementById('output');
+  el.style.transform = 'scale(' + scaleVal / 100 + ')';
+  el.style.transformOrigin = 'top center';
+  document.getElementById('sizeLabel').textContent = scaleVal + '%';
 }
 </script>
 </body>
